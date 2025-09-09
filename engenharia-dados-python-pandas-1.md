@@ -124,3 +124,15 @@
       2. Orientada a colunas: Todo o JSON é um dicionário composto por outros dicionários, onde cada dicionário é uma coluna, e esta coluna possui como chave o índice da linha da tabela, e o valor de fato daquele registro para aquela coluna.
 * Conseguimos indicar com que tipo de orientação/forma estamos trabalhando através do parâmetro [orient](https://pandas.pydata.org/docs/reference/api/pandas.read_json.html#:~:text=strings%20is%20deprecated.-,orient,-str%2C%20optional) 
 * Para ler o conteúdo de uma fonte que utiliza JSON, utilizamos o método .read_json()
+#### APIs
+* Uma API é um programa que busca padronizar a forma como a qual outros sistemas podem se comunicar com um sistema de uma empresa
+* APIs são a principal origem do consumo de dados no formato JSON
+* Cada API possui regras prórpias de como consumir seu conteúdo, mas elas tendem a seguir uma estrutura padrão.
+* A biblioteca mais popular para consumir APIs com python é a [Requests](https://requests.readthedocs.io/en/latest/)
+* As API trabalham com requisições feitas através de uma URL passada como string, muito similar às strings de conexão de banco de dados tradicionais.
+* O principal método pra obter dados utilizando a bilioteca citada é o requests.get(), o qual recebe a string URL da API
+* Tal método possui 2 parâmetros chaves:
+  1. params : recebe um dicionário de parâmetros e valores que personalizam a requisição feita à API
+  2. hearders: recebe um dicionário que tipicamente é utilizado para que o usuário consumidor dos dados seja autenticado para consumir a API (normalmente é pedido uma chave de conexão)
+* O resultado do uso de tal método, combinado com os parâmetros citados, é um objeto response (resposta), contendo os dados e metadados do objeto no formato JSON.
+* utilizar response.json() irá retornar apenas os dados no formato de dicionário. Para converter estes dados num formato tabular, utilizamos pd.DataFrame para converter esse dicionário em um Pandas DataFrame.
