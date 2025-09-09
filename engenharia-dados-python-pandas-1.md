@@ -114,3 +114,13 @@
             from atendimentos;"""
     df = pd.read_sql(query, connection) #(query, engine)
     ```
+    
+### Extraindo dados de arquivos JSON e APIs  
+#### JSON
+* Java Script Object Notation (JSON) é uma forma padrão de organizar dados de APIS, Bancos de dados NoSQL, e documentos da WEB. Neste modelo de dados, os dados são organizados em coleções de objetos, organizados no modelo atributo-valor, acessíveis num formato similar ao de um dicionário python (chave-valor). Estes objetos podem possuir outros objetos aninhados, tornando, apesar de performática a sua consulta, um pouco trabalhoso o acesso aos dados.
+* Tendo em mente a organização no formato de documentos, desse tipo de dado, categorizamos estes como dados não tabulares, e portanto, semi-estruturados (possuem uma estrutura, apesar de não ser uma no formato de tabela), pois podem variar e muito de forma. O pandas, no caso, através de um processo de inferência, tenta converter a estrutura do documento JSON num formato tabular.
+* Um arquivo JSON pode ser organizado de diversas formas, mas as mais comuns são:
+      1. Orientada a registros (linhas): Cada dicionário representa uma linha da tabela, e o arquivo JSON como um todo, é representado como uma lista destes dicionários.
+      2. Orientada a colunas: Todo o JSON é um dicionário composto por outros dicionários, onde cada dicionário é uma coluna, e esta coluna possui como chave o índice da linha da tabela, e o valor de fato daquele registro para aquela coluna.
+* Conseguimos indicar com que tipo de orientação/forma estamos trabalhando através do parâmetro [orient](https://pandas.pydata.org/docs/reference/api/pandas.read_json.html#:~:text=strings%20is%20deprecated.-,orient,-str%2C%20optional) 
+* Para ler o conteúdo de uma fonte que utiliza JSON, utilizamos o método .read_json()
