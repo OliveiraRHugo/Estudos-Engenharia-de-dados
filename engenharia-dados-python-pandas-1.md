@@ -148,8 +148,9 @@
                       headers = headers
                   )
       dados_api = response.json()
-      df = pd.DataFrame(dados_api)
+      df = pd.DataFrame(dados_api["tabela"])
   ```
   
+
 
 
