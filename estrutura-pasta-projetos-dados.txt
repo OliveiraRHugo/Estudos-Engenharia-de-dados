@@ -1,0 +1,44 @@
+nome_do_projeto/
+├── data/
+│   ├── raw/                 # Dados brutos imutáveis (ex: .csv, .json, .parquet)
+│   ├── processed/           # Dados limpos e padronizados (prontos para uso)
+│   ├── external/            # Dados de terceiros (ex: APIs públicas, datasets de referência)
+│   └── output/              # Resultados finais (ex: tabelas agregadas, datasets para ML)
+│
+├── src/
+│   ├── ingestion/           # Scripts de extração de dados (ex: APIs, bancos SQL/NoSQL)
+│   ├── processing/          # Limpeza, validação e enriquecimento
+│   ├── transformation/      # Lógica de business (ex: agregações, feature engineering)
+│   ├── utils/               # Funções auxiliares (ex: conexões DB, logging)
+│   └── pipelines/           # Orquestração (ex: DAGs do Airflow, scripts de pipeline)
+│
+├── notebooks/
+│   ├── exploration/         # Análises exploratórias iniciais
+│   ├── prototyping/         # Testes de conceito e experimentos
+│   └── analysis/            # Análises profundas e visualizações
+│
+├── tests/
+│   ├── unit/                # Testes de funções e classes
+│   ├── integration/         # Testes de conexões entre componentes
+│   └── fixtures/            # Dados de teste mockados
+│
+├── config/
+│   ├── dev.yml              # Configurações de desenvolvimento
+│   ├── prod.yml             # Configurações de produção
+│   └── credentials.example  # Template para variáveis sensíveis (NUNCA comite credenciais reais!)
+│
+├── scripts/
+│   ├── setup_environment.sh # Configuração inicial do projeto
+│   ├── deploy.sh            # Automação de deploy (ex: Docker, cloud)
+│   └── maintenance/         # Scripts de limpeza/otimização
+│
+├── docs/
+│   ├── architecture.md      # Diagramas e decisões técnicas
+│   ├── data_dictionary.md   # Descrição de tabelas e campos
+│   └── onboarding.md        # Guia para novos desenvolvedores
+│
+├── models/                  # Artefatos de ML (ex: .pkl, .h5) ou modelos de dados dbt
+├── .gitignore              # Arquivos ignorados pelo Git
+├── requirements.txt         # Dependências Python (ou pyproject.toml)
+├── docker-compose.yml       # Containers para serviços auxiliares (ex: PostgreSQL, MinIO)
+└── README.md               # Documentação principal do projeto

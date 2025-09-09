@@ -1,0 +1,371 @@
+# Orientações para Iniciantes em Engenharia de Dados: Git, Configurações, Testes e Fluxo de Trabalho
+
+Como engenheiro de dados sênior, entendo que começar pode ser desafiador. Vou guiá-lo através dos conceitos básicos e práticos para organizar seu projeto, com foco em Git/GitHub, configurações de ambiente, testes e automação. Utilizaremos a estrutura de pastas fornecida anteriormente como base.
+
+## 1. Git e GitHub: Controle de Versão Básico
+
+Git é um sistema de controle de versão que rastreia alterações no código. GitHub é uma plataforma para hospedar repositórios Git online.
+
+### Comandos Git Essenciais:
+- **Inicializar um repositório Git**:
+  ```bash
+  git init
+  ```
+
+- **Verificar o status dos arquivos**:
+  ```bash
+  git status
+  ```
+
+- **Adicionar arquivos para commit** (estágio):
+  ```bash
+  git add .  # Adiciona todos os arquivos
+  git add nome_do_arquivo  # Adiciona um arquivo específico
+  ```
+
+- **Comitar alterações** (salvar no histórico local):
+  ```bash
+  git commit -m "Mensagem descritiva do que foi feito"
+  ```
+
+- **Conectar a um repositório remoto no GitHub** (após criar o repositório no GitHub):
+  ```bash
+  git remote add origin https://github.com/seu-usuario/nome-do-projeto.git
+  ```
+
+- **Enviar commits para o GitHub**:
+  ```bash
+  git push -u origin main  # Na primeira vez
+  git push  # Nas próximas vezes
+  ```
+
+### Fluxo de Trabalho Simples:
+1. Crie um repositório no GitHub através do site (sem inicializar com README).
+2. No terminal, na pasta do projeto, execute:
+   ```bash
+   git init
+   git add .
+   git commit -m "Primeiro commit"
+   git remote add origin <URL-do-repositorio>
+   git push -u origin main
+   ```
+3. Para atualizar futuras alterações:
+   ```bash
+   git add .
+   git commit -m "Descrição das alterações"
+   git push
+   ```
+
+### Arquivo `.gitignore`:
+Crie um arquivo `.gitignore` na raiz do projeto para evitar que arquivos sensíveis ou desnecessários sejam commitados. Exemplo:
+```
+# Dados
+data/raw/
+data/processed/
+data/external/
+data/output/
+
+# Configurações com segredos
+config/credentials.yml
+config/.env
+
+# Ambiente virtual
+venv/
+env/
+
+# Cache do Python
+__pycache__/
+*.pyc
+
+# Notebooks
+.ipynb_checkpoints/
+```
+
+## 2. Configurações de Ambiente com Arquivos YAML (.yml)
+
+YAML (YAML Ain't Markup Language) é um formato de arquivo para configurações, usando indentação para estrutura. É legível e fácil de usar.
+
+### Exemplo de `config/dev.yml`:
+```yaml
+database:
+  host: localhost
+  port: 5432
+  name: meu_banco_dev
+  user: usuario_dev
+
+api:
+  url: "https://api.exemplo.com/dev"
+  timeout: 30
+```
+
+### Exemplo de `config/prod.yml` (para produção):
+```yaml
+database:
+  host: production-db.com
+  port: 5432
+  name: meu_banco_prod
+  user: usuario_prod
+
+api:
+  url: "https://api.exemplo.com/prod"
+  timeout: 60
+```
+
+### Como Usar em Python:
+Instale a biblioteca `PyYAML`:
+```bash
+pip install pyyaml
+```
+
+Crie um arquivo `src/utils/config_loader.py` para carregar configurações:
+```python
+import yaml
+import os
+
+def load_config(env='dev'):
+    config_path = f'config/{env}.yml'
+    with open(config_path, 'r') as file:
+        config = yaml.safe_load(file)
+    return config
+
+# Uso exemplo
+config = load_config('dev')
+db_host = config['database']['host']
+```
+
+### Segurança: Nunca Commit Credenciais!
+- Use `config/credentials.example` como modelo:
+  ```yaml
+  database:
+    password: "senha_aqui"
+  api:
+    key: "chave_aqui"
+  ```
+- Renomeie para `credentials.yml` e preencha com suas credenciais localmente.
+- Adicione `config/credentials.yml` ao `.gitignore`.
+
+Em vez de hardcode, use variáveis de ambiente ou um arquivo `.env` (com `python-dotenv`):
+```bash
+pip install python-dotenv
+```
+
+Crie um arquivo `.env` na raiz:
+```
+DB_PASSWORD=minha_senha_secreta
+API_KEY=minha_chave_secreta
+```
+
+No código:
+```python
+from dotenv import load_dotenv
+load_dotenv()
+
+db_password = os.getenv('DB_PASSWORD')
+```
+
+## 3. Scripts de Automação com Arquivos SH (.sh)
+
+Arquivos `.sh` são scripts de shell para automatizar tarefas no Linux/Mac. No Windows, você pode usar o Git Bash ou WSL.
+
+### Exemplo de `scripts/setup_environment.sh`:
+```bash
+#!/bin/bash
+
+# Script para configurar o ambiente de desenvolvimento
+
+echo "Instalando dependências Python..."
+pip install -r requirements.txt
+
+echo "Criando diretórios de dados..."
+mkdir -p data/raw data/processed data/external data/output
+
+echo "Configurando ambiente virtual..."
+python3 -m venv venv
+source venv/bin/activate  # No Windows: venv\Scripts\activate
+
+echo "Ambiente configurado!"
+```
+
+### Como Executar:
+- Torne o script executável:
+  ```bash
+  chmod +x scripts/setup_environment.sh
+  ```
+- Execute:
+  ```bash
+  ./scripts/setup_environment.sh
+  ```
+
+### Para Windows:
+Se estiver no Windows, você pode criar um arquivo `.bat` ou usar PowerShell. Exemplo `scripts/setup_environment.bat`:
+```bat
+@echo off
+pip install -r requirements.txt
+mkdir data\raw data\processed data\external data\output
+python -m venv venv
+call venv\Scripts\activate
+echo Ambiente configurado!
+```
+
+## 4. Testes: Introdução Prática
+
+Testes garantem que seu código funcione como esperado. Use `pytest` para simplificar.
+
+### Instale o pytest:
+```bash
+pip install pytest
+```
+
+### Estrutura de Testes:
+- `tests/unit/`: Testes de funções individuais.
+- `tests/integration/`: Testes de integração entre módulos.
+- `tests/fixtures/`: Dados de teste.
+
+### Exemplo de Teste Unitário:
+Suponha que você tenha uma função em `src/utils/helpers.py`:
+```python
+def add_numbers(a, b):
+    return a + b
+```
+
+Crie `tests/unit/test_helpers.py`:
+```python
+from src.utils.helpers import add_numbers
+
+def test_add_numbers():
+    assert add_numbers(2, 3) == 5
+    assert add_numbers(-1, 1) == 0
+```
+
+### Executando Testes:
+```bash
+pytest tests/unit/  # Executa todos os testes unitários
+pytest tests/unit/test_helpers.py  # Executa um arquivo específico
+```
+
+### Dica para Iniciantes:
+- Comece com testes simples para funções críticas.
+- Use fixtures para dados de teste repetitivos. Exemplo em `tests/fixtures/sample_data.csv`.
+
+## 5. Fluxo de Trabalho Completo do Projeto
+
+Siga estos passos para criar seu projeto do zero:
+
+1. **Crie a Estrutura de Pastas**:
+   ```bash
+   mkdir meu_projeto
+   cd meu_projeto
+   mkdir -p data/raw data/processed data/external data/output
+   mkdir -p src/ingestion src/processing src/transformation src/utils src/pipelines
+   mkdir -p notebooks/exploration notebooks/analysis
+   mkdir -p tests/unit tests/integration tests/fixtures
+   mkdir -p config scripts docs
+   ```
+
+2. **Inicialize o Git**:
+   ```bash
+   git init
+   ```
+
+3. **Crie e Ative um Ambiente Virtual** (recomendado):
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate  # Linux/Mac
+   # ou venv\Scripts\activate  # Windows
+   ```
+
+4. **Instale Dependências**:
+   - Crie `requirements.txt` na raiz:
+     ```
+     pyyaml==6.0
+     python-dotenv==0.19.0
+     pytest==7.0.0
+     ```
+   - Instale:
+     ```bash
+     pip install -r requirements.txt
+     ```
+
+5. **Crie Arquivos de Configuração**:
+   - `config/dev.yml` e `config/prod.yml` como exemplos acima.
+   - `config/credentials.example` para modelo de credenciais.
+
+6. **Escreva Scripts de Automação**:
+   - `scripts/setup_environment.sh` para configurar o ambiente.
+   - `scripts/run_pipeline.sh` para executar o pipeline (exemplo futuro).
+
+7. **Escreva Código Básico**:
+   - Comece com `src/ingestion/extract_data.py` para extrair dados.
+   - Depois `src/processing/clean_data.py` para limpar dados.
+
+8. **Escreva Testes Básicos**:
+   - Teste funções simples primeiro.
+
+9. **Documente no README.md**:
+   - Explique a estrutura de pastas.
+   - Como configurar e executar o projeto.
+
+10. **Commit e Push para GitHub**:
+    ```bash
+    git add .
+    git commit -m "Estrutura inicial do projeto"
+    git remote add origin https://github.com/seu-usuario/meu-projeto.git
+    git push -u origin main
+    ```
+
+## Exemplo de README.md
+
+Crie um arquivo `README.md` na raiz:
+
+```markdown
+# Meu Projeto de Engenharia de Dados
+
+Descrição breve do projeto.
+
+## Estrutura de Pastas
+
+```
+meu_projeto/
+├── data/              # Dados em várias etapas
+├── src/               # Código fonte
+├── notebooks/         # Jupyter notebooks
+├── tests/             # Testes
+├── config/            # Configurações
+├── scripts/           # Scripts de automação
+├── docs/              # Documentação
+└── README.md
+```
+
+## Configuração
+
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/seu-usuario/meu-projeto.git
+   cd meu-projeto
+   ```
+
+2. Configure o ambiente:
+   ```bash
+   ./scripts/setup_environment.sh
+   ```
+
+3. Preencha as credenciais em `config/credentials.yml` (baseado em `config/credentials.example`).
+
+## Execução
+
+- Para executar o pipeline:
+  ```bash
+  python src/main.py
+  ```
+
+- Para executar testes:
+  ```bash
+  pytest tests/
+  ```
+```
+
+## Conclusão
+
+Comece devagar, focando em uma parte de cada vez. Pratique os comandos Git frequentemente. Use a estrutura de pastas para manter organização. Conforme ganha experiência, você irá refinar esses processos. Lembre-se de sempre manter credenciais seguras e fora do versionamento.
+
+Se tiver dúvidas específicas, me pergunte! Boa sorte com seu projeto.
