@@ -98,3 +98,19 @@
           df.to_datetime(df['col_data_1'], format='%m/%d/%Y') #  formato atual do dado, não é necessariamente o formato desejado!
           ```
 ### Extraindo dados de bancos de dados     
+* O processo de extrair dados de um banco de dados envolve 2 etapas:
+      1. Criar uma conexão com o banco de dados
+      2. Executar uma consulta ao banco de dados
+* Para isto, utilizamos a biblioteca python SQLALCHEMY
+* A principal função da biblioteca é a create_engine() . Esta função é a responsável por fazer conectar o script ao sistema de banco de dados, através de um string de conexão (basicamente o endereço do banco de dados, tipicamente composto por ip, porta, driver, e sgbd), e das informações de autenticação (usuario e senha do banco de dados). O farmato da string de conexão varia de acordo com o sgbd utilizado.
+* Instanciada a nossa engine de conexão, utilizamos o método pd.read_sql() passando o código da consulta SQL e o nossa engine como parâmetros para conseguir acessar os dados.
+    ```
+    import pandas as pd
+    from sqlalchemy import create_engine
+    
+    connection = create_engine("string de conexão")
+    query = """
+            select *
+            from atendimentos;"""
+    df = pd.read_sql(query, connection) #(query, engine)
+    ```
