@@ -136,3 +136,19 @@
   2. hearders: recebe um dicionário que tipicamente é utilizado para que o usuário consumidor dos dados seja autenticado para consumir a API (normalmente é pedido uma chave de conexão)
 * O resultado do uso de tal método, combinado com os parâmetros citados, é um objeto response (resposta), contendo os dados e metadados do objeto no formato JSON.
 * utilizar response.json() irá retornar apenas os dados no formato de dicionário. Para converter estes dados num formato tabular, utilizamos pd.DataFrame para converter esse dicionário em um Pandas DataFrame.
+  ```
+      import requests
+      import pandas as pd
+      api_url = "https://api_zoologico.com/v1/search"
+      params = {"dieta":"carnivora","meio_locomocao":"terrestre"}
+      headers = {f"Autorização:{chave_acesso}"}
+      response = requests.get(
+                      api_url,
+                      params = params,
+                      headers = headers
+                  )
+      dados_api = response.json()
+      df = pd.DataFrame(dados_api)
+  ```
+  
+
