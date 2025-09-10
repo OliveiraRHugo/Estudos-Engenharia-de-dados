@@ -18,3 +18,14 @@
   load(data_frame=transformed_data, target_table="cleaned_data")
   
   ```
+
+### Principais métodos por etapa do processo de ETL
+
+#### E (Extração)
+* Aqui estão **todos os métodos e recursos que envolvem a leitura de arquivos ou de dados: .read_csv(), read_sql(), read_...**
+
+#### T (Transformação)
+* Aqui estão **todos os métodos que permitem a modificação dos dados**, dentre estes tipos de operação estão: **operações de filtro, substituição, conversão de tipo, criação de novos campos, tratamento de valores nulos e não nulos, etc...**
+
+#### L (Carga)
+* Aqui estão **todos os métodos que permitem a escrita, ou a carga, de um DataFrame em um arquivo: .to_csv(), .to_sql(), etc...**
