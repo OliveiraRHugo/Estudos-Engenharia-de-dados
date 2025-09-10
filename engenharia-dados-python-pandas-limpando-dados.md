@@ -21,6 +21,28 @@
 #### Tratamento em variáveis do tipo texto (string)
 * Tratamos problemas para este tipo através dos métodos do módulo .str. O módulo [.str](https://pandas.pydata.org/docs/reference/api/pandas.Series.str.capitalize.html) possui diversos métodos que nos permitem padronizar e transformar os valores do tipo texto de um objeto Series (coluna de um DataFrame), e certamente vai sair nossa principal ferramenta para lidar com problemas que envolvam esse tipo de dado.
 
+#### Tratamento em variáveis do tipo categoria (category)
+* Tratamos problemas para este tipo através dos métodos do módulo .cat. O módulo [.cat](https://pandas.pydata.org/docs/user_guide/categorical.html) possui diversos métodos que nos permitem trabalhar com valores do tipo categórico de um objeto Series (coluna de um DataFrame), e certamente vai sair nossa principal ferramenta para lidar com problemas que envolvam esse tipo de dado.
+* Uma forma interessante de trabalhar com categorias é sempre ter um DataFrame ou uma tabela com os possíveis valores da categoria com a qual estamos trabalhando e utilizar ela como referência para tratar o dado. Nossos principais aliados nestes momento são a função set(), o método .difference(), e o método .isin()
+* a função set() será utilizada na nossa tabela de categorias de referência. set, ou conjuntos, são uma estrutura de dados do python onde não é possível haver valores duplicados, e todo set, só pode possuir valores do mesmo tipo. Então, ele irá garantir que nenhum valor da nossa tabela de referência está duplicado.
+* O método difference() vai ser a estrela do show, ele será utilizando para comparar os valores diferentes que ocorrem na nossa tabela de referência com os valores que ocorrem na nossa series (coluna do dataframe), e retornará os valores discrepantes/inconsistentes.
+* Por fim, utilizamos o método isin() para identificar os registros onde os valores discrepantes ocorrem, para que possamos tratá-los da forma adequada.
+    ```
+    #  Carrega os dados
+    df = pd.read_csv('tabela_principal.csv')
+    categorias = pd.read_csv('categorias.csv')
+    
+    #  Converte a variável para o tipo categoria e salva os valores em um conjunto
+    categorias['valores'] = categorias['valores'].astype('category')
+    referencia_categorias = set(categorias['valores'])
+    
+    #  Verifica os valores diferentes dos valores das categorias que estão sendo utilizados em produção, e os registros dos mesmos
+    valores_inconsistentes = referencia_categorias.difference(df['categoria_producao'])
+    print(valores_inconsistentes)
+    registros_inconsistentes = df['categoria_producao'].isin(valores_inconsistentes)
+    ```
+
+
 #### Tratamento em variáveis do tipo data (datetime)
 * Tratamos problemas para este tipo através dos métodos do módulo .dt. O módulo [.dt](https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.date.html) possui diversos métodos que nos permitem padronizar e transformar os valores do tipo datetime de um objeto Series (coluna de um DataFrame), e certamente vai sair nossa principal ferramenta para lidar com problemas que envolvam esse tipo de dado.
 * Através deste módulo conseguimos formatar datas e extrair os valores do ano, mês, hora, de um valor datetime.
