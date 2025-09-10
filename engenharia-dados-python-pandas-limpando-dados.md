@@ -31,3 +31,11 @@
     ```
     assert df['valor'].dtype == 'float'
     ```
+#### Lindando com valores nulos ou valores duplicados
+* Conseguimos identificar facilmente valores duplicados utilizando os métodos .info() e .duplicated()
+* Podemos utilizar .duplicated() como um filtro, para observar os valores duplicados, ou, podemos ainda realizar a soma do seu resultado para apenas observar o número de registros duplicados
+```
+duplicados = df[df.duplicated()]
+#ou
+n_duplicados = df.duplicated().sum()
+```
