@@ -33,6 +33,12 @@
     ```
 #### Lindando com valores nulos ou valores duplicados
 * Um recurso que pode nos ajudar a identificar valores nulos ou duplicados é ordernar o nosso conjunto de dados, fazemos isso através do método [.sort_valueS()](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html)
+* Podemos ainda agrupar os dados e realizar operações estatísticas para analisar a qualidade dos dados. Fazemos isto utilizando uma combinação do método .groupby() com o método .agg()
+```
+colunas = ['a','b','c']
+medidas = ['valor':'mean', 'valor':'std']
+df_agrupado = df.groupby(by = colunas).agg(medidas).reset_index()
+```
 * Conseguimos identificar facilmente valores duplicados utilizando os métodos .info() e .duplicated()
 * Podemos utilizar .duplicated() como um filtro, para observar os registros dos valores duplicados, ou, podemos ainda realizar a soma do seu resultado para apenas observar o número de registros duplicados
 * Podemos ainda simplesmente remover todos os valores duplicados através do .drop_duplicates()
