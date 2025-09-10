@@ -15,6 +15,8 @@
 
 ### Tratamentos de tipo de dado
 * Verificamos o tipo de dados das variáveis de um DataFrame utilizando o atributo .dtypes ou utilizando o método .info().
+* Convertemos o tipo de dado de uma variável para outro tipo através do método [.astype()](https://pandas.pydata.org/docs/reference/api/pandas.Series.astype.html), passando como parâmetro uma string indicando o tipo de dados para oqual desejamos converter a nossa variável. Também podemos utilizar os métodos .to_"tipo do dado"() para tentar realizar a conversão dos tipos.
+* Nem sempre conseguimos converter os tipos das nossas variáveis de forma direta, e precisamos realizar tratamentos e transformações nestas, antes de prosseguir com as conversões.
 
 #### Tratamento em variáveis do tipo texto (string)
 * Tratamos problemas para este tipo através dos métodos do módulo .str. O módulo [.str](https://pandas.pydata.org/docs/reference/api/pandas.Series.str.capitalize.html) possui diversos métodos que nos permitem padronizar e transformar os valores do tipo texto de um objeto Series (coluna de um DataFrame), e certamente vai sair nossa principal ferramenta para lidar com problemas que envolvam esse tipo de dado.
