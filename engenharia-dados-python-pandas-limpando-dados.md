@@ -26,7 +26,7 @@
 * Através deste módulo conseguimos formatar datas e extrair os valores do ano, mês, hora, de um valor datetime.
 
 #### Validando as transformações realizadas
-* Uma forma de validar o resultado das nossas transformações é utilizando expressões lógicas em conjunto da palavra reservada assert. Através de expressões deste tipo, o python irá testar se o resultado da nossa expressão é True ou False, e retornar o resultado avaliado. Isto nos dará um indicativo se a transformação ocorreu da forma adequada ou não.
+* Uma forma de validar o resultado das nossas transformações é utilizando expressões lógicas em conjunto da palavra reservada assert. Através de expressões deste tipo, o python irá testar se o resultado da nossa expressão é True ou False, e irá retornar um erro de assertividade (Assertion Error), caso o resultado avaliado tenha sido False. Isto nos dará um indicativo se a transformação ocorreu da forma adequada ou não.
       
     ```
     assert df['valor'].dtype == 'float'
