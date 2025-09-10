@@ -124,6 +124,12 @@
       2. Orientada a colunas: Todo o JSON é um dicionário composto por outros dicionários, onde cada dicionário é uma coluna, e esta coluna possui como chave o índice da linha da tabela, e o valor de fato daquele registro para aquela coluna.
 * Conseguimos indicar com que tipo de orientação/forma estamos trabalhando através do parâmetro [orient](https://pandas.pydata.org/docs/reference/api/pandas.read_json.html#:~:text=strings%20is%20deprecated.-,orient,-str%2C%20optional) 
 * Para ler o conteúdo de uma fonte que utiliza JSON, utilizamos o método .read_json()
+
+#### JSON Aninhados (JSON com Objetos como valores)
+* Utilizamos o módulo pandas.io.jon para trabalhar com JSON aninhados. Ele não é importado tipicamente junto ao pandas, fazendo necessária a sua importação explícita.
+* Para "normalizar ou simplificar" JSON aninhados, utilizamos a função [json_normalize()](https://pandas.pydata.org/docs/reference/api/pandas.json_normalize.html). Esta função recebe um dicionário ou uma lista de dicionários.
+  
+
 #### APIs
 * Uma API é um programa que busca padronizar a forma como a qual outros sistemas podem se comunicar com um sistema de uma empresa
 * APIs são a principal origem do consumo de dados no formato JSON
@@ -151,6 +157,11 @@
       df = pd.DataFrame(dados_api["tabela"])
   ```
   
+### Unindo DataFrames com .concat()
+* Utilizando [.concat()](https://pandas.pydata.org/docs/reference/api/pandas.concat.html) estamos empilhando os conjuntos de dados, e adicionandos as linhas de uma tabela a uma outra tabela.
+  
+### Realizando junções com .merge()
+* Utilizando [.merge()](https://pandas.pydata.org/docs/reference/api/pandas.merge.html) estamos trazendo as colunas de uma tabela para uma outra tabela, através de um campo comum entre as mesmas.
 
 
 
