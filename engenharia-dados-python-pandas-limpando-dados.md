@@ -32,8 +32,10 @@
     assert df['valor'].dtype == 'float'
     ```
 #### Lindando com valores nulos ou valores duplicados
+* Um recurso que pode nos ajudar a identificar valores nulos ou duplicados é ordernar o nosso conjunto de dados, fazemos isso através do método [.sort_valueS()](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html)
 * Conseguimos identificar facilmente valores duplicados utilizando os métodos .info() e .duplicated()
 * Podemos utilizar .duplicated() como um filtro, para observar os registros dos valores duplicados, ou, podemos ainda realizar a soma do seu resultado para apenas observar o número de registros duplicados
+* Podemos ainda simplesmente remover todos os valores duplicados através do .drop_duplicates()
     ```
     duplicados = df[df.duplicated()]
     #ou
@@ -41,6 +43,7 @@
     ```
 * Conseguimos identificar facilmente valores nulos utilizando os métodos .info() e .isna()
 * Podemos utilizar .isna() como um filtro, para observar os registros dos valores nulos, ou, podemos ainda realizar a soma do seu resultado para apenas observar o número de registros vazios
+* Podemos ainda simplesmente remover todos os valores vazios através do .dropna()
     ```
     vazios = df[df.isna()]
     #ou
