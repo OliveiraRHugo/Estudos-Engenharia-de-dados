@@ -40,4 +40,4 @@
 * O nosso pipeline pode ter sua execução interrompida por diversos motivos, desde alterações na fonte dos dados até por remoções de bibliotecas de desenvolvimento. Tendo isso em mente, se faz necessário o monitoramento da execução do mesmo, visando sanar os problemas que impedem a disponibilidade dos dados antes dos usuários sentirem a dor advinda destes.
 * O principal recurso para monitoramento de pipelines são os logs (registros). Eles documentam a performance do pipeline, e nos dão uma ideia inicial do problema que ocorreu e como tratá-lo.
 * Para criar logs, utilizamos a biblioteca [logging](https://docs.python.org/3/library/logging.html)
-* O uso de logs com expressões try e catch do python formam a solução mais básica de monitoramento de pipelines. Use sempre os logs na etapa do catch.
+* O uso de logs com expressões try e catch/except do python formam a solução mais básica de monitoramento de pipelines. Use sempre os logs na etapa do catch.
