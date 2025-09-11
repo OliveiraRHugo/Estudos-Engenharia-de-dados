@@ -29,3 +29,9 @@
 
 #### L (Carga)
 * Aqui estão **todos os métodos que permitem a escrita, ou a carga, de um DataFrame em um arquivo: .to_csv(), .to_sql(), etc...**
+* Durante o processo de carga é necessário validar se os dados foram de fato escritos na nova fonte. Uma forma de validar isso é utilizando o pacote os, e verificar se no caminho apontado para a escrita dos novos dados, está contido os arquivos com os novos dados:
+  ```
+  import os
+  arquivo_existe = os.path.exists("novo_arquivo_novos_dados.csv")
+  print(arquivo_existe)
+  ```
