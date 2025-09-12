@@ -41,3 +41,4 @@
 * O principal recurso para monitoramento de pipelines são os logs (registros). Eles documentam a performance do pipeline, e nos dão uma ideia inicial do problema que ocorreu e como tratá-lo.
 * Para criar logs, utilizamos a biblioteca [logging](https://docs.python.org/3/library/logging.html)
 * O uso de logs com expressões try e catch/except do python formam a solução mais básica de monitoramento de pipelines. Use sempre os logs na etapa do catch.
+* Também podemos utilizar o método .equals() para verificar se o dataframe transformado é igual ao dataframe carregado, e descobrir falhas no fluxo da informação
