@@ -1,6 +1,4 @@
-# Orientações para Iniciantes em Engenharia de Dados: Git, Configurações, Testes e Fluxo de Trabalho
-
-Como engenheiro de dados sênior, entendo que começar pode ser desafiador. Vou guiá-lo através dos conceitos básicos e práticos para organizar seu projeto, com foco em Git/GitHub, configurações de ambiente, testes e automação. Utilizaremos a estrutura de pastas fornecida anteriormente como base.
+# Engenharia de Dados: Git, Configurações, Testes e Fluxo de Trabalho
 
 ## 1. Git e GitHub: Controle de Versão Básico
 
@@ -369,3 +367,4 @@ meu_projeto/
 Comece devagar, focando em uma parte de cada vez. Pratique os comandos Git frequentemente. Use a estrutura de pastas para manter organização. Conforme ganha experiência, você irá refinar esses processos. Lembre-se de sempre manter credenciais seguras e fora do versionamento.
 
 Se tiver dúvidas específicas, me pergunte! Boa sorte com seu projeto.
+
