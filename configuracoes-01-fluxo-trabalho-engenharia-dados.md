@@ -361,10 +361,3 @@ meu_projeto/
   pytest tests/
   ```
 ```
-
-## Conclusão
-
-Comece devagar, focando em uma parte de cada vez. Pratique os comandos Git frequentemente. Use a estrutura de pastas para manter organização. Conforme ganha experiência, você irá refinar esses processos. Lembre-se de sempre manter credenciais seguras e fora do versionamento.
-
-Se tiver dúvidas específicas, me pergunte! Boa sorte com seu projeto.
-
