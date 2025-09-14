@@ -323,7 +323,3 @@
 * **Capítulo 24: Visão Geral da Análise Avançada e Machine Learning** (Spark The Definitive Guide)
     * O Spark inclui o **MLlib**, uma biblioteca robusta para Machine Learning que opera sobre DataFrames [Spark The Definitive Guide, 38, 409]. Embora o foco deste resumo seja ETL, é importante saber que você pode estender seus pipelines para incluir etapas de engenharia de features, treinamento e avaliação de modelos de ML em escala [Spark The Definitive Guide, 406, 567].
     * **Transformers e Estimators:** São os blocos de construção para ML, permitindo a **engenharia de features** (pré-processamento de dados para ML) e o treinamento de modelos [Spark The Definitive Guide, 296-302, 410, 427, 573]. A engenharia de features é, em sua essência, uma forma de transformação de dados [Data Analysis with Python and PySpark, 46, 567].
-
----
-
-Este resumo foca nos aspectos práticos e no fluxo de trabalho de um engenheiro de dados usando PySpark, com exemplos de código para as tarefas mais comuns de ETL, desde a ingestão de dados até o carregamento, passando por limpeza, transformação e otimização.
