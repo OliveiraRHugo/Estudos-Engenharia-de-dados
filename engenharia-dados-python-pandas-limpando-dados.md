@@ -46,6 +46,7 @@
 #### Tratamento em variáveis do tipo data (datetime)
 * Tratamos problemas para este tipo através dos métodos do módulo .dt. O módulo [.dt](https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.date.html) possui diversos métodos que nos permitem padronizar e transformar os valores do tipo datetime de um objeto Series (coluna de um DataFrame), e certamente vai sair nossa principal ferramenta para lidar com problemas que envolvam esse tipo de dado.
 * Através deste módulo conseguimos formatar datas e extrair os valores do ano, mês, hora, de um valor datetime.
+* Uma possibilidade de tratar dados de data é indicar as colunas de data logo na importação do dataframe, utilizando o atributo parse_dates =['col_data_1','col_data_n'] nos métodos pd.read_*(). Outro método é utilizar o pd.to_datetime() para realizar a conversão do campo.
 
 #### Validando as transformações realizadas
 * Uma forma de validar o resultado das nossas transformações é utilizando expressões lógicas em conjunto da palavra reservada assert. Através de expressões deste tipo, o python irá testar se o resultado da nossa expressão é True ou False, e irá retornar um erro de assertividade (Assertion Error), caso o resultado avaliado tenha sido False. Isto nos dará um indicativo se a transformação ocorreu da forma adequada ou não.
