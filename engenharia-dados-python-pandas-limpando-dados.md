@@ -41,7 +41,7 @@
     print(valores_inconsistentes)
     registros_inconsistentes = df['categoria_producao'].isin(valores_inconsistentes)
     ```
-
+* Outra forma interessante de trabalhar com variáveis categóricas é através de mapeamentos "de-para". Variáveis categóricas normalmente são do tipo texto, e não possuem um armazenamento otimizado. Para sanar esse problema, podemos utilizar o método np.where do numpy que funciona como um case, ou ainda, criar um dicionário de dados onde a chave é o valor da categoria e o valor do dicionário é o valor numérico que queremos atribuir à categoria, e depois utilizar o método nativo .map() para mapear estes valores.
 
 #### Tratamento em variáveis do tipo data (datetime)
 * Tratamos problemas para este tipo através dos métodos do módulo .dt. O módulo [.dt](https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.date.html) possui diversos métodos que nos permitem padronizar e transformar os valores do tipo datetime de um objeto Series (coluna de um DataFrame), e certamente vai sair nossa principal ferramenta para lidar com problemas que envolvam esse tipo de dado.
