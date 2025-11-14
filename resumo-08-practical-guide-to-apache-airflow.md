@@ -16,7 +16,22 @@ Bibliografias: Practical Guide to Apache Airflow 3, Datacamp e documentação do
 * O Airflow irá executar o código contido no arquivo do DAG, criando dinamicamente os objetos do tipo DAG.
 * Você pode ter quandos DAG's quiser e com quantas tarefas quiser, mas a boa prática é que cada DAG deva representar um fluxo de trabalho e que é melhor haver várias tarefas pequenas do que uma grande tarefa que faz tudo.
 * Durante a sua execução, o Airflow considerará apenas arquivos onde as strings "airflow" e "DAG" apareçam no conteúdo do arquivo python (.py)
-* 
+* Um DAG Principal deve ser definido sempre no contexto global, enquanto sub dags atrelados ao primeiro dag podem ser definidos numa função do DAG principal (caso haja dependência entre os DAG's)
+#### Argumentos padrão para definição de DAG's
+* É costume criar um dicionário com os argumentos e os valores a serem passados para uma instância de um DAG
+* Estes argumentos definem como irão se comportar todas as tarefas atreladas àquele DAG
+  
+```{python}
+default_args = {
+    'start_date': datetime(2016, 1, 1),
+    'owner': 'Airflow'
+}
+
+dag = DAG('meu_primeiro_dag', default_args=default_args)
+op = DummyOperator(task_id='dummy', dag=dag)
+print(op.owner) # Airflow
+```
+
 ### 
 ## Principais Abordagens de desenvolvimento de pipelines no Airflow
 * **Abordagem Orientada a Tarefas (_Task-Oriented Approach_):** A maneira tradicional de criar DAGs no Airflow, onde tarefas individuais realizam ações e suas dependências são definidas. No Airflow 3, ainda é válido usar operadores tradicionais como `BashOperator`, `PythonOperator` e `SQLExecuteQueryOperator`, que estão contidos em pacotes de provedores adicionais.
