@@ -89,6 +89,8 @@ with DAG('meu_dag', start_date=datetime(2025, 1, 1)) as dag:
        task1 >> task2 # task1 será executado antes de task2
     )
 ```
+<img width="1080" height="366" alt="image" src="https://github.com/user-attachments/assets/7dee6ce9-9a2d-476f-bee5-11124e0e30f9" />
+
 ### Task, Tarefas
 * Quando um operador é instanciado, ele é chamado de taks, uma tarefa
 * A instância de uma taks representa a execução de uma tarefa e é identificada através da combinação de um DAG, uma task, e um registro de tempo
