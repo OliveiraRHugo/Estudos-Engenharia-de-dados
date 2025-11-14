@@ -76,15 +76,17 @@ inferred_op.set_upstream(deferred_op)
 * **Qualquer upstream será executada antes de qualquer downstream**
 * Este operadores também podem ser utilizados com DAG's, indicando a necessidade da execução de um DAG antes ou depois da execução de determinados operadores ou DAG's
 ```{python}
-with DAG('meu_dag', start_date=datetime(2016, 1, 1)) as dag:
+with DAG('meu_dag', start_date=datetime(2025, 1, 1)) as dag:
     (
-        DummyOperator(task_id='dummy_1')
-        >> BashOperator(
-            task_id='bash_1',
-            bash_command='echo "OLÁ!"')
-        >> PythonOperator(
-            task_id='python_1',
-            python_callable=lambda: print("TCHAU!"))
+       task1 = BashOperator(
+                task_id='bash_1',
+                bash_command='echo "OLÁ!"'
+               )
+       task2 = PythonOperator(
+                  task_id='python_1',
+                  python_callable=lambda: print("TCHAU!")
+               )
+       task1 >> task2 # task1 será executado antes de task2
     )
 ```
 ### Task, Tarefas
