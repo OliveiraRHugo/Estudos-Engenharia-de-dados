@@ -44,7 +44,14 @@ op.dag is dag # True
 * Cada operador deve representar apenas 1 tarefa do fluxo de trabalho
 * O DAG irá garantir que os operadores sejam executados na ordem adequada, para aqueles que estejam atrelados em alguma dependência, e para aqueles onde não há dependências, eles serão executados de forma independente.
 * No entanto, se dois operadores precisam compartilhar uma informação, como um nome de arquivo ou um conjunto de dados, estes operadores devem ser combinados em um único operador. Caso não seja possível, deve-se utilizar o XCom do Airflow.
-* 
+#### Operadores mais comumente utilizados
+* BashOperator - Executa um comando de terminal linux (bash)
+* PythonOperator - Executa uma função Python
+* EmailOperator - Envia um e-mail
+* SimpleHttpOperator - Envia uma requisição HTTP
+* Operadores de SGBD's que executam comandos SQL: MySqlOperator, SqliteOperator, PostgresOperator, MsSqlOperator, OracleOperator, JdbcOperator, etc...
+* Sensor - Aguarda por um certo período de tempo, arquivo, eventos, linhas de um banco de dados, etc…
+* Outros operadores de ferramentas de terceiros, como docker, etc...
 ## Principais Abordagens de desenvolvimento de pipelines no Airflow
 * **Abordagem Orientada a Tarefas (_Task-Oriented Approach_):** A maneira tradicional de criar DAGs no Airflow, onde tarefas individuais realizam ações e suas dependências são definidas. No Airflow 3, ainda é válido usar operadores tradicionais como `BashOperator`, `PythonOperator` e `SQLExecuteQueryOperator`, que estão contidos em pacotes de provedores adicionais.
 * **Abordagem Orientada a Ativos (_Asset-Oriented Approach_):** Uma **nova e significativa mudança de paradigma no Airflow 3**, onde os _pipelines_ são definidos com base nos **objetos de dados que produzem** (ativos). Um ativo é identificado por um nome único e pode ter um URI (Uniform Resource Identifier). Essa abordagem é **orientada a dados**, com os objetos de dados no centro tanto no código quanto na UI do Airflow.
