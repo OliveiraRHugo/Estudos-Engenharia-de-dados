@@ -52,6 +52,22 @@ op.dag is dag # True
 * Operadores de SGBD's que executam comandos SQL: MySqlOperator, SqliteOperator, PostgresOperator, MsSqlOperator, OracleOperator, JdbcOperator, etc...
 * Sensor - Aguarda por um certo período de tempo, arquivo, eventos, linhas de um banco de dados, etc…
 * Outros operadores de ferramentas de terceiros, como docker, etc...
+#### Atribuindo operadores a um DAG
+* Podemos atribuir um operador a um DAG de diversas formas, explícita, deferida ou inferida
+```{python}
+dag = DAG('my_dag', start_date=datetime(2016, 1, 1))
+
+# atribuição explícita
+explicit_op = DummyOperator(task_id='op1', dag=dag)
+
+# atribuição deferida (
+deferred_op = DummyOperator(task_id='op2')
+deferred_op.dag = dag
+
+# atribuição inferida (operadores associados devem estar no mesmo DAG)
+inferred_op = DummyOperator(task_id='op3')
+inferred_op.set_upstream(deferred_op)
+```
 ## Principais Abordagens de desenvolvimento de pipelines no Airflow
 * **Abordagem Orientada a Tarefas (_Task-Oriented Approach_):** A maneira tradicional de criar DAGs no Airflow, onde tarefas individuais realizam ações e suas dependências são definidas. No Airflow 3, ainda é válido usar operadores tradicionais como `BashOperator`, `PythonOperator` e `SQLExecuteQueryOperator`, que estão contidos em pacotes de provedores adicionais.
 * **Abordagem Orientada a Ativos (_Asset-Oriented Approach_):** Uma **nova e significativa mudança de paradigma no Airflow 3**, onde os _pipelines_ são definidos com base nos **objetos de dados que produzem** (ativos). Um ativo é identificado por um nome único e pode ter um URI (Uniform Resource Identifier). Essa abordagem é **orientada a dados**, com os objetos de dados no centro tanto no código quanto na UI do Airflow.
