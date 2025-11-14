@@ -31,8 +31,20 @@ dag = DAG('meu_primeiro_dag', default_args=default_args)
 op = DummyOperator(task_id='dummy', dag=dag)
 print(op.owner) # Airflow
 ```
+#### Utiliação do gerenciador de contexto para instanciar DAG's
+* DAG's podem ser instanciados utilizando gerenciador de contextos para automaticamente atribuir novos operadores instanciados ao DAG instanciado com o gerenciador de contexto
+```{python}
+with DAG('meu_primeiro_dag', start_date=datetime(2016, 1, 1)) as dag:
+    op = DummyOperator('op')
 
-### 
+op.dag is dag # True
+```
+### Operators, Operadores
+* Enquanto um DAG representa um fluxo de trabalho, Operadores determinam as tarefas a serem executadas e que compõem este fluxo
+* Cada operador deve representar apenas 1 tarefa do fluxo de trabalho
+* O DAG irá garantir que os operadores sejam executados na ordem adequada, para aqueles que estejam atrelados em alguma dependência, e para aqueles onde não há dependências, eles serão executados de forma independente.
+* No entanto, se dois operadores precisam compartilhar uma informação, como um nome de arquivo ou um conjunto de dados, estes operadores devem ser combinados em um único operador. Caso não seja possível, deve-se utilizar o XCom do Airflow.
+* 
 ## Principais Abordagens de desenvolvimento de pipelines no Airflow
 * **Abordagem Orientada a Tarefas (_Task-Oriented Approach_):** A maneira tradicional de criar DAGs no Airflow, onde tarefas individuais realizam ações e suas dependências são definidas. No Airflow 3, ainda é válido usar operadores tradicionais como `BashOperator`, `PythonOperator` e `SQLExecuteQueryOperator`, que estão contidos em pacotes de provedores adicionais.
 * **Abordagem Orientada a Ativos (_Asset-Oriented Approach_):** Uma **nova e significativa mudança de paradigma no Airflow 3**, onde os _pipelines_ são definidos com base nos **objetos de dados que produzem** (ativos). Um ativo é identificado por um nome único e pode ter um URI (Uniform Resource Identifier). Essa abordagem é **orientada a dados**, com os objetos de dados no centro tanto no código quanto na UI do Airflow.
