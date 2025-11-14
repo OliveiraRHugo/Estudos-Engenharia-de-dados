@@ -68,6 +68,35 @@ deferred_op.dag = dag
 inferred_op = DummyOperator(task_id='op3')
 inferred_op.set_upstream(deferred_op)
 ```
+#### Operadores de relacionamento (bitshift) e a relação de execução entre operadores e DAG's
+* Os operadores de relacionamento defininem a ordem de execução dos operadores de um DAG
+* São eles (onde op é a instância de um operador qualquer):
+  * **op.set_downstream(op2)** ou **>>**
+  * **op.set_upstream(op2)** ou **<<**
+* Este operadores também podem ser utilizados com DAG's, indicando a necessidade da execução de um DAG antes ou depois da execução de determinados operadores ou DAG's
+```{python}
+with DAG('meu_dag', start_date=datetime(2016, 1, 1)) as dag:
+    (
+        DummyOperator(task_id='dummy_1')
+        >> BashOperator(
+            task_id='bash_1',
+            bash_command='echo "OLÁ!"')
+        >> PythonOperator(
+            task_id='python_1',
+            python_callable=lambda: print("TCHAU!"))
+    )
+```
+### Task, Tarefas
+* Quando um operador é instanciado, ele é chamado de taks, uma tarefa
+* A instância de uma taks representa a execução de uma tarefa e é identificada através da combinação de um DAG, uma task, e um registro de tempo
+* Tarefas instanciadas também possuem um indicador do seu status, se sua execução foi bem sucedida, se falhou, se está executando, etc...
+### Hooks, ganchos
+* Hooks são interfaces para plataformas externas e bancos de dados
+* Basicamente, os hooks funcionam como um template para a construção de operadores e são responsáveis por facilitar o uso das conexões com bancos de dados no airflow.
+* Atráves dos Hooks, conseguimos recuperar as informações registradas nos modelos de conexão do airflow, como hostnames e outras informações de autenticação de bancos de dados e API's
+### Pools, piscinas
+* São uma ferramenta para limitar a execução em paralelo desgovernada no airflow
+
 ## Principais Abordagens de desenvolvimento de pipelines no Airflow
 * **Abordagem Orientada a Tarefas (_Task-Oriented Approach_):** A maneira tradicional de criar DAGs no Airflow, onde tarefas individuais realizam ações e suas dependências são definidas. No Airflow 3, ainda é válido usar operadores tradicionais como `BashOperator`, `PythonOperator` e `SQLExecuteQueryOperator`, que estão contidos em pacotes de provedores adicionais.
 * **Abordagem Orientada a Ativos (_Asset-Oriented Approach_):** Uma **nova e significativa mudança de paradigma no Airflow 3**, onde os _pipelines_ são definidos com base nos **objetos de dados que produzem** (ativos). Um ativo é identificado por um nome único e pode ter um URI (Uniform Resource Identifier). Essa abordagem é **orientada a dados**, com os objetos de dados no centro tanto no código quanto na UI do Airflow.
