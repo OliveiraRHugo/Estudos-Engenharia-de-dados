@@ -1,12 +1,24 @@
 # Estudos Apache Airflow
 
-Bibliografias: Practical Guide to Apache Airflow 3 e Datacamp
+Bibliografias: Practical Guide to Apache Airflow 3, Datacamp e documentação do apache airflow
 
 ## Introdução ao Apache Airflow
 
-* **O que é Apache Airflow:** Uma ferramenta _open source_ para **escrever, agendar e gerenciar _workflows_ como código**.
-* É ideal para definir ações que dependem umas das outras e devem ser realizadas em uma ordem específica. O Airflow é considerado o **líder da indústria em orquestração de dados e gerenciamento de _pipelines_**.
+* **O que é Apache Airflow:** Uma ferramenta _open source_ para **escrever, agendar, gerenciar e monitorar _workflows_ como código**.
+* É ideal para definir ações que dependem umas das outras e devem ser realizadas em uma ordem específica.
 * **_Data Orchestration_:** Envolve a **coordenação, automação e monitoramento de _workflows_ de dados**, garantindo a execução suave de tarefas e a entrega oportuna de _insights_ valiosos.
+
+## Principais Conceitos
+### DAG (Directed Acyclic Graph, Gráfico direcionado Acíclico)
+* É um gráfico que representa uma coleção de tarefas executadas em uma ordem específica, e de forma sequencial ou não, a depender da dependência entre as tarefas
+* O DAG representa o fluxo de trabalho a ser automatizado, garantindo a sua execução no momento correto
+* DAG's são definidos em arquivos python, e salvos na pasta DAG_FOLDER do diretório em que o Apache Airflow foi instalado.
+* O Airflow irá executar o código contido no arquivo do DAG, criando dinamicamente os objetos do tipo DAG.
+* Você pode ter quandos DAG's quiser e com quantas tarefas quiser, mas a boa prática é que cada DAG deva representar um fluxo de trabalho e que é melhor haver várias tarefas pequenas do que uma grande tarefa que faz tudo.
+* Durante a sua execução, o Airflow considerará apenas arquivos onde as strings "airflow" e "DAG" apareçam no conteúdo do arquivo python (.py)
+* 
+### 
+## Principais Abordagens de desenvolvimento de pipelines no Airflow
 * **Abordagem Orientada a Tarefas (_Task-Oriented Approach_):** A maneira tradicional de criar DAGs no Airflow, onde tarefas individuais realizam ações e suas dependências são definidas. No Airflow 3, ainda é válido usar operadores tradicionais como `BashOperator`, `PythonOperator` e `SQLExecuteQueryOperator`, que estão contidos em pacotes de provedores adicionais.
 * **Abordagem Orientada a Ativos (_Asset-Oriented Approach_):** Uma **nova e significativa mudança de paradigma no Airflow 3**, onde os _pipelines_ são definidos com base nos **objetos de dados que produzem** (ativos). Um ativo é identificado por um nome único e pode ter um URI (Uniform Resource Identifier). Essa abordagem é **orientada a dados**, com os objetos de dados no centro tanto no código quanto na UI do Airflow.
 ---
@@ -29,6 +41,10 @@ Bibliografias: Practical Guide to Apache Airflow 3 e Datacamp
   * **Inferência de Dependências:** Ao usar decoradores `@task`, o Airflow infere automaticamente as dependências com base nas entradas das tarefas.
   * **Melhor Prática:** É mais fácil depurar múltiplos **pequenos tarefas** do que grandes tarefas monolíticas.
 * **Idempotência:** Garante que múltiplas execuções de uma tarefa ou DAG produzam o mesmo resultado. O `execution_date` pode ser usado em _filenames_ para garantir que a reexecução sobrescreva o arquivo existente, tornando a tarefa idempotente.
+* Uma task, ou tarefa, nada mais é do que uma instância de um operator, e normalmente é armazenada numa variável de um script python
+  ```{python}
+  
+  ```
 ---
 
 ## Agendamento de execução e confiabilidade
