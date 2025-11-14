@@ -71,8 +71,9 @@ inferred_op.set_upstream(deferred_op)
 #### Operadores de relacionamento (bitshift) e a relação de execução entre operadores e DAG's
 * Os operadores de relacionamento defininem a ordem de execução dos operadores de um DAG
 * São eles (onde op é a instância de um operador qualquer):
-  * **op.set_downstream(op2)** ou **>>**
-  * **op.set_upstream(op2)** ou **<<**
+  * **op.set_downstream(op2)** ou **>>** ou **"depois"**
+  * **op.set_upstream(op2)** ou **<<** ou **"antes"**
+* **Qualquer upstream será executada antes de qualquer downstream**
 * Este operadores também podem ser utilizados com DAG's, indicando a necessidade da execução de um DAG antes ou depois da execução de determinados operadores ou DAG's
 ```{python}
 with DAG('meu_dag', start_date=datetime(2016, 1, 1)) as dag:
